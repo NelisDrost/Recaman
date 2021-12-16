@@ -1,7 +1,9 @@
 class SpiralAxis {
-    constructor() {
+    constructor(p) {
         this.scale = 4;
         this.x_pow = 1;
+
+        this.p = p;
     }
 
     drawAxis() {
@@ -31,8 +33,8 @@ class SpiralAxis {
     }
 
     pointToAxis(x, y) {
-        let px = this.scale * (x + 2 * y) * sin(pow(x, this.x_pow) + .5707963267948966);
-        let py = this.scale * (x + 2 * y) * cos(pow(x, this.x_pow) + .5707963267948966);
+        let px = this.scale * (x + 2 * y) * this.p.sin(this.p.pow(x, this.x_pow) + .5707963267948966);
+        let py = this.scale * (x + 2 * y) * this.p.cos(this.p.pow(x, this.x_pow) + .5707963267948966);
         // let px = this.scale *  (x + 2 * y) * cos(this.x_pow * x);
         // let py = this.scale * (x + 2 * y) * sin(this.x_pow * x);
 
