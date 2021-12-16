@@ -1,20 +1,47 @@
+if (!Array.prototype.last){
+    Array.prototype.last = function(){
+        return this[this.length - 1];
+    };
+}
+
 class Recaman {
     constructor(n) {
         this.sequence = [0];
         this.used = new Set();
         this.used.add(0);
 
-        let i = 0;
-        let j = 1;
-        for (let ii = 0; ii < n; ii++) {
-            if ((i - j) > 0 && !this.used.has(i-j)) {
-                i = i - j;
+        this.j = 1;
+        if (n !== null) {
+            this.generate(n);
+        }
+    }
+
+    generate(n) {
+        if (this.j >= n) {
+            return;
+        }
+
+        let i = this.sequence.last();
+        for (;this.j < n; this.j++) {
+            if ((i - this.j) > 0 && !this.used.has(i-this.j)) {
+                i = i - this.j;
             } else {
-                i = i + j;
+                i = i + this.j;
             }
             this.sequence.push(i);
             this.used.add(i);
-            j++;
+        }
+    }
+
+    get(start, end) {
+        // Generate extra values if needed
+        this.generate(Math.max(start, end))
+
+        // Return either slice or single value as requested
+        if (end !== null) {
+            return this.sequence.slice(start, end)
+        } else {
+            return this.sequence[start]
         }
     }
 }
